@@ -1,0 +1,5 @@
+{:tasks {uberjar (clojure "-T:build uber")
+         native {:depends [uberjar]
+                 :task (shell "native-image" "clj-native-sound-demo"
+                              "-H:JNIConfigurationFiles=jni-config.json"
+                              "-jar" "target/clj-native-sound-demo.jar")}}}
