@@ -5,8 +5,8 @@
 ## Build
 
 Requires [babashka](https://github.com/babashka/babashka#installation).
-
-Run `bb native` to build the native image.
+Set `GRAALVM_HOME` or add `native-image` to your `PATH`.
+Finally, run `bb native` to build the native image.
 
 ## Issues
 

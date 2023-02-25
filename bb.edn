@@ -1,5 +1,10 @@
 {:tasks {uberjar (clojure "-T:build uber")
          native {:depends [uberjar]
-                 :task (shell "native-image" "clj-native-sound-demo"
-                              "-H:JNIConfigurationFiles=jni-config.json"
-                              "-jar" "target/clj-native-sound-demo.jar")}}}
+                 :requires ([babashka.fs :as fs])
+                 :task
+                 (let [native-image-cmd (if-let [gh (System/getenv "GRAALVM_HOME")]
+                                          (str (fs/file gh "bin" "native-image"))
+                                          "native-image")]
+                   (shell native-image-cmd "clj-native-sound-demo"
+                          "-H:JNIConfigurationFiles=jni-config.json"
+                          "-jar" "target/clj-native-sound-demo.jar"))}}}
